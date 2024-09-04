@@ -1,3 +1,6 @@
+from modules import Calendarium
+import time
+
 print("""This is going to be an application combining a calendar with to-do app
 Viable commands:
 - add
@@ -7,19 +10,19 @@ Viable commands:
 - exit""")
 
 # default list
-user1_list = ['test1', 'test2', 'test3']
+# user1_list = ['test1', 'test2', 'test3']
 # print("Length of the test list: ", len(user1_list))
 
 
-def open_file():
-    with open("files/user_list.txt", "r") as file_local:
+def open_file(filepath):
+    with open(filepath, "r") as file_local:
         local_user_list = file_local.readlines()
     return local_user_list
 
 
-def save_file():
-    with open("files/user_list.txt", "w") as file_local:
-        file_local.writelines(user_list)
+def save_file(filepath, file):
+    with open(filepath, "w") as file_local:
+        file_local.writelines(file)
 
 
 while True:
@@ -30,12 +33,12 @@ while True:
 
         case "add":
             try:
-                user_list = open_file()
+                user_list = open_file(filepath="files/user_list.txt")
 
                 new_to_do = input(">> Enter next position: ")
                 user_list.append(new_to_do + "\n")
 
-                save_file()
+                save_file(filepath="files/user_list.txt", file=user_list)
 
                 print(">>> Position added")
 
@@ -45,7 +48,7 @@ while True:
 
         case "show":
             try:
-                user_list = open_file()
+                user_list = open_file(filepath="files/user_list.txt")
 
                 for number, item in enumerate(user_list):
                     item = item.strip("\n")
@@ -57,7 +60,7 @@ while True:
 
         case "delete":
             try:
-                user_list = open_file()
+                user_list = open_file(filepath="files/user_list.txt")
 
                 to_delete = input(">> Delete position: ")
                 if to_delete.isdigit():
@@ -69,14 +72,14 @@ while True:
                 else:
                     print("*error 2*")
 
-                save_file()
+                save_file(filepath="files/user_list.txt", file=user_list)
 
             except FileNotFoundError:
                 continue
 
         case "edit":
             try:
-                user_list = open_file()
+                user_list = open_file(filepath="files/user_list.txt")
 
                 to_edit_num = input(">> Edit position: ")
                 if to_edit_num.strip():
@@ -86,14 +89,14 @@ while True:
                 else:
                     print("*error 3*")
 
-                save_file()
+                save_file(filepath="files/user_list.txt", file=user_list)
 
             except FileNotFoundError:
                 continue
 
         case "count":
             try:
-                user_list = open_file()
+                user_list = open_file(filepath="files/user_list.txt")
 
                 print(f"List contains {len(user_list)} positions")
             except FileNotFoundError:
