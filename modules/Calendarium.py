@@ -10,3 +10,8 @@ def open_file(filepath=FILEPATH):
 def save_file(file, filepath=FILEPATH):
     with open(filepath, "w") as file_local:
         file_local.writelines(file)
+
+
+def create_file(file, filepath):
+    with open(filepath, "w") as file_local:
+        file_local.writelines(file)
